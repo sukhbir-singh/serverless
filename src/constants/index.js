@@ -1,0 +1,16 @@
+const ERROR_CODES = {
+  SUCCESS: 200,
+  CLIENT_ERROR: 400,
+  SERVER_ERROR: 500,
+};
+
+const { REGION, BUCKET } = process.env;
+
+const IMAGES_PREFIX = 'images';
+const THUMBNAILS_PREFIX = 'thumbnails';
+
+const THUMBNAIL_IMAGE_WIDTH = 400;
+
+module.exports = {
+  ERROR_CODES, REGION, BUCKET, IMAGES_PREFIX, THUMBNAILS_PREFIX, THUMBNAIL_IMAGE_WIDTH,
+};

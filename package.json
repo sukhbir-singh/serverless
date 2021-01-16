@@ -5,14 +5,22 @@
   "author": "Sukhbir <sukhbir947@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "prestart": "node src/fix-sls-offline.js",
-    "package": "sls package",
-    "deploy": "sls deploy"
+    "prestart": "node fix-sls-offline.js",
+    "lint": "eslint src"
   },
   "devDependencies": {
-    "aws-sdk": "2.223.1",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.2",
+    "pre-commit": "^1.2.2",
     "serverless": "1.26.1",
-    "serverless-offline": "3.20.1",
-    "sharp": "0.27.0"
+    "serverless-offline": "3.20.1"
+  },
+  "pre-commit": [
+    "lint"
+  ],
+  "dependencies": {
+    "aws-sdk": "2.223.1",
+    "sharp": "^0.27.0"
   }
 }
