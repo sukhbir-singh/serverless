@@ -1,11 +1,13 @@
 const { isFileExist, deleteImageFromS3 } = require('../lib/s3');
 const { success, error } = require('../utils');
-const { IMAGES_PREFIX, THUMBNAILS_PREFIX, BUCKET } = require('../constants');
+const {
+  IMAGES_PREFIX, THUMBNAILS_PREFIX, BUCKET, ERROR_MESSAGE,
+} = require('../constants');
 
 const deleteImage = async (event) => {
   const { pathParameters } = event;
   if (!pathParameters || !pathParameters.name) {
-    return error(400, 'Invalid file name');
+    return error(400, ERROR_MESSAGE.INVALID_FILE_NAME);
   }
 
   const fileName = pathParameters.name;
@@ -16,7 +18,7 @@ const deleteImage = async (event) => {
   const isThumbnailExist = await isFileExist(BUCKET, thumbnailKey);
 
   if (!isImageExist) {
-    return error(400, 'No file exists with given input file name.');
+    return error(400, ERROR_MESSAGE.FILE_NOT_EXIST);
   }
 
   // delete main image file

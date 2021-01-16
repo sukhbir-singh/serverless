@@ -1,13 +1,13 @@
 /* eslint-disable no-console */
 const { getSignedUrl } = require('../lib/s3');
 const { success, error } = require('../utils');
-const { IMAGES_PREFIX, BUCKET } = require('../constants');
+const { IMAGES_PREFIX, BUCKET, ERROR_MESSAGE } = require('../constants');
 
 const uploadImage = async (event) => {
   const { headers } = event;
   const inputFileName = headers && headers.filename ? headers.filename : undefined;
   if (!inputFileName) {
-    return error(400, 'Add header \'filename\' to request.');
+    return error(400, ERROR_MESSAGE.HEADER_MISSING_FILENAME);
   }
 
   try {
