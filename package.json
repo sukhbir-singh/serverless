@@ -13,7 +13,7 @@
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-plugin-import": "^2.20.2",
     "pre-commit": "^1.2.2",
-    "serverless": "1.26.1",
+    "serverless": "^2.19.0",
     "serverless-offline": "3.20.1"
   },
   "pre-commit": [
