@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const { getSignedUrl } = require('../lib/s3');
 const { success, error } = require('../utils');
 const { IMAGES_PREFIX, BUCKET } = require('../constants');
@@ -13,6 +14,7 @@ const uploadImage = async (event) => {
     const url = await getSignedUrl(BUCKET, `${IMAGES_PREFIX}/${inputFileName}`);
     return success({ 'signed-url': url });
   } catch (err) {
+    console.log(err);
     return error(400, err);
   }
 };

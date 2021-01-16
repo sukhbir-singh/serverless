@@ -59,3 +59,23 @@ functions:
           cors: true
     layers:
       - { Ref: ImageNodePackagesLambdaLayer }
+  search-image:
+    name: ${self:custom.stage}-search-image
+    handler: src/index.searchImage
+    events:
+      - http:
+          path: /search
+          method: get
+          cors: true
+    layers:
+      - { Ref: ImageNodePackagesLambdaLayer }
+  delete-image:
+    name: ${self:custom.stage}-delete-image
+    handler: src/index.deleteImage
+    events:
+      - http:
+          path: /image/{name}
+          method: delete
+          cors: true
+    layers:
+      - { Ref: ImageNodePackagesLambdaLayer }

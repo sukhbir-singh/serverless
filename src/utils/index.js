@@ -14,4 +14,12 @@ const error = (code = ERROR_CODES.CLIENT_ERROR, message) => ({
   body: JSON.stringify({ message }),
 });
 
-module.exports = { success, error };
+const getOnlyFileName = (key) => key.split('/').pop();
+
+const parseImageList = (list = []) => list.map((obj) => ({
+  FileName: getOnlyFileName(obj.Key),
+  Size: obj.Size,
+  CreatedAt: new Date(obj.LastModified).toString(),
+}));
+
+module.exports = { success, error, parseImageList };
