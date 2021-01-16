@@ -1,0 +1,18 @@
+{
+  "name": "image-repository",
+  "description": "Image repository demo",
+  "version": "1.0.0",
+  "author": "Sukhbir <sukhbir947@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "prestart": "node src/fix-sls-offline.js",
+    "package": "sls package",
+    "deploy": "sls deploy"
+  },
+  "devDependencies": {
+    "aws-sdk": "2.223.1",
+    "serverless": "1.26.1",
+    "serverless-offline": "3.20.1",
+    "sharp": "0.27.0"
+  }
+}

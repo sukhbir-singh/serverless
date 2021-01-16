@@ -1,0 +1,61 @@
+service: upload-to-s3-and-postprocess
+
+plugins:
+  - serverless-offline
+
+frameworkVersion: '>=1.1.0'
+
+package:
+  exclude:
+    - node_modules/**
+    - package.json
+    - README.md
+    - yarn.lock
+
+layers:
+  ImageNodePackages:
+    path: node_modules
+    name: node-image-packages-layer
+    compatibleRuntimes:
+      - nodejs12.x
+
+custom:
+  bucketName: latest-bucket-s3-test
+  stage: latest
+  serverless-offline:
+    port: 4000
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: ${opt:region, env:AWS_REGION, 'eu-west-1'}
+  environment:
+    NODE_PATH: "./:/opt:/opt/node_modules"
+    REGION: eu-west-1
+    BUCKET: ${self:custom.bucketName}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - s3:*
+      Resource: '*'
+
+functions:
+  generate-thumbnail:
+    name: ${self:custom.stage}-generate-thumbnail
+    handler: src/index.generateThumbnail
+    events:
+      - s3:
+          bucket: ${self:custom.bucketName}
+          event: s3:ObjectCreated:*
+    layers:
+      - { Ref: ImageNodePackagesLambdaLayer }
+  upload-image:
+    name: ${self:custom.stage}-upload-image
+    handler: src/index.uploadImage
+    events:
+      - http:
+          path: /upload
+          method: post
+          cors: true
+    layers:
+      - { Ref: ImageNodePackagesLambdaLayer }
